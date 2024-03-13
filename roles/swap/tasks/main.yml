@@ -1,0 +1,30 @@
+---
+- name: Check swap path for existing file
+  ansible.builtin.stat:
+    path: "{{ swap_path }}"
+  register: swapfile
+
+- name: Make the swap file
+  ansible.builtin.include_tasks: makeswap.yml
+  when: not swapfile.stat.exists
+
+- name: Mount the swap file
+  block:
+    - name: Set the swap file in /etc/fstab
+      ansible.posix.mount:
+        path: none
+        src: "{{ swap_path }}"
+        fstype: swap
+        opts: swap
+        state: present
+      register: __mount
+    - name: Turn on the swap file
+      ansible.builtin.command:
+        cmd: swapon -a
+      changed_when: __mount.changed
+
+- name: Set swappiness
+  ansible.posix.sysctl:
+    name: vm.swappiness
+    sysctl_file: /etc/sysctl.d/10-swap.conf
+    value: "{{ swap_swappiness }}"

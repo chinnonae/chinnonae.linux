@@ -1,0 +1,5 @@
+- name: Make swap
+  hosts: "{{ hostnames | default('all') }}"
+  become: true
+  roles:
+    - swap

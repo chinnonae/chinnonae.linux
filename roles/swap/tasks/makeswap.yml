@@ -1,0 +1,16 @@
+- name: Allocate the swap file
+  ansible.builtin.command:
+    cmd: fallocate -l {{ swap_size }} {{ swap_path }}
+  changed_when: not swapfile.stat.exists
+
+- name: Change file permission of the swap file
+  ansible.builtin.file:
+    path: "{{ swap_path }}"
+    mode: "0600"
+    owner: root
+    group: root
+
+- name: Create swap on the swapfile
+  community.general.filesystem:
+    dev: "{{ swap_path }}"
+    fstype: swap

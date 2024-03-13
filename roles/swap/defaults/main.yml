@@ -1,0 +1,6 @@
+---
+# defaults file for swap
+swap_path: /swapfile
+swap_size: 2G
+
+swap_swappiness: 10
