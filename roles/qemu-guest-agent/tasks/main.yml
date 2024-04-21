@@ -1,0 +1,11 @@
+---
+- name: Ensure qemu-guest-agent is installed
+  ansible.builtin.apt:
+    name: qemu-guest-agent
+    state: present
+
+- name: Ensure qemu-guest-agent is started
+  ansible.builtin.systemd_service:
+    name: qemu-guest-agent
+    state: started
+    enabled: true
