@@ -1,0 +1,6 @@
+---
+- name: Set sysctl
+  ansible.builtin.include_tasks: sysctl.yml
+  loop: "{{ sysctl_configs | dict2items }}"
+  loop_control:
+    loop_var: sysctl_config
