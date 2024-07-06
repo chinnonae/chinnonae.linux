@@ -1,0 +1,12 @@
+---
+# tasks file for sshd
+- name: Copy sshd config
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/ssh/sshd.config.d/{{ item }}"
+    owner: root
+    group: root
+    mode: '0600'
+  loop:
+    - 90-root-password.conf
+  notify: Restart sshd
