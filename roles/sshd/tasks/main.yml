@@ -3,7 +3,7 @@
 - name: Copy sshd config
   ansible.builtin.template:
     src: "{{ item }}.j2"
-    dest: "/etc/ssh/sshd.config.d/{{ item }}"
+    dest: "/etc/ssh/sshd_config.d/{{ item }}"
     owner: root
     group: root
     mode: '0600'
