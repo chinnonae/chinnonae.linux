@@ -8,5 +8,5 @@
     group: root
     mode: '0600'
   loop:
-    - 90-root-password.conf
+    - 90-root-login.conf
   notify: Restart sshd
