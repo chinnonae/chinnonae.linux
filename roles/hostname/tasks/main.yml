@@ -1,0 +1,11 @@
+---
+# tasks file for hostname
+
+- name: Make sure hostname exist in /etc/hosts
+  ansible.builtin.lineinfile:
+    line: "127.0.0.1\t{{ hostname_name }}"
+    path: /etc/hosts
+
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ hostname_name }}"
